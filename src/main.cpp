@@ -26,9 +26,10 @@ void setup() {
     }
 
     Serial.print(F("[SX1276] Initializing ... "));
-    int state = radio.begin(868.0, 500, 6, 7, SX127X_SYNC_WORD, 10, 8, 0);
-    state = radio.setCurrentLimit(60);
-    state = radio.setCRC(true);
+    int state = radio.begin(868.0);
+    //int state = radio.begin(868.0, 125, 6, 7, SX127X_SYNC_WORD, 10, 8, 0);
+    //state = radio.setCurrentLimit(60);
+    //state = radio.setCRC(true);
 
     if (state == ERR_NONE) {
         Serial.println(F("success!"));
@@ -45,7 +46,7 @@ void setup() {
 void loop() {
       myGPS.checkUblox(); //See if new data is available. Process bytes as they come in.
 
-        long altitulde_mm = 0;
+        long altitulde_mm = 600000;
         long latitude_mdeg = 0;
         long longitude_mdeg = 0;
 
@@ -73,7 +74,7 @@ void loop() {
 
     Serial.print(F("[SX1276] Transmitting packet ... "));
 
-    byte byteArr[14];
+    byte byteArr[4];
 
     byteArr[0] = (int)((latitude_mdeg >> 24) & 0xFF);
     byteArr[1] = (int)((latitude_mdeg >> 16) & 0xFF) ;
@@ -98,6 +99,7 @@ void loop() {
     if (state == ERR_NONE) {
         // the packet was successfully transmitted
         Serial.println(F(" success!"));
+        Serial.print("Altitude (m): ");
 
         // print measured data rate
         Serial.print(F("[SX1276] Datarate:\t"));

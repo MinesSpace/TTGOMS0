@@ -3510,7 +3510,7 @@ boolean SFE_UBLOX_GPS::getRELPOSNED(uint16_t maxWait)
 
   //We got a response, now parse the bits
 
-  uint16_t refStationID = extractInt(2);
+  //uint16_t refStationID = extractInt(2);
   //_debugSerial->print(F("refStationID: "));
   //_debugSerial->println(refStationID));
 
@@ -3626,12 +3626,12 @@ boolean SFE_UBLOX_GPS::getEsfDataInfo(uint16_t maxWait)
 
   checkUblox();
 
-  uint32_t timeStamp = extractLong(0);
+  //uint32_t timeStamp = extractLong(0);
   uint32_t flags = extractInt(4);
 
-  uint8_t timeSent = (flags && 0x01) >> 1;
-  uint8_t timeEdge = (flags && 0x02) >> 2;
-  uint8_t tagValid = (flags && 0x04) >> 3;
+  //uint8_t timeSent = (flags && 0x01) >> 1;
+  //uint8_t timeEdge = (flags && 0x02) >> 2;
+  //uint8_t tagValid = (flags && 0x04) >> 3;
   uint8_t numMeas = (flags && 0x1000) >> 15;
 
   if (numMeas > DEF_NUM_SENS)
